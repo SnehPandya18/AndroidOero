@@ -1,0 +1,26 @@
+ext.versions = [
+        gradlePluginVersion         : '3.0.1',
+
+        compileSdkVersion           : 27,
+        targetSdkVersion            : 27,
+        minSdkVersion               : 16,
+        buildToolsVersion           : '27.0.2',
+
+        versionCode                 : 1,
+        versionName                 : "0.0.1",
+
+        supportLibraryVersion       : '27.0.2',
+        constraintLayoutVersion     : '1.0.2',
+
+        retrofit                    : '',
+        retrofitGsonConverter       : '',
+        retrofitRxJava2Adapter      : '',
+
+        architectureComponents      : '1.0.0',
+
+        glide                       : '',
+
+        testingLibraryVersion       : '1.0.1',
+        espresso                    : '3.0.1',
+        jUnit                       : '4.12',
+]

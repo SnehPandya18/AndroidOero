@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+apply from: '../dependencies.gradle'
+
+android {
+
+    compileSdkVersion versions.compileSdkVersion
+    buildToolsVersion versions.buildToolsVersion
+
+    defaultConfig {
+
+        applicationId "com.snehpandya.androidoreo"
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.versionCode
+        versionName versions.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:' + versions.supportLibraryVersion
+    implementation 'com.android.support.constraint:constraint-layout:' + versions.constraintLayoutVersion
+
+    testImplementation 'junit:junit:' + versions.jUnit
+    androidTestImplementation 'com.android.support.test:runner:' + versions.testingLibraryVersion
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:' + versions.espresso
+}
