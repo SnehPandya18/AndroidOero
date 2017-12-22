@@ -3,7 +3,9 @@ package com.snehpandya.androidoreo.view.activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Notification mNotification;
     private NotificationManager mNotificationManager;
     private NotificationChannel mChannel;
+    private PendingIntent mPendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notifyId = 1;
         description = "Hello World, welcome to Android Oreo!";
+
+        Intent intent = new Intent(this, MainActivity.class);
+        mPendingIntent = PendingIntent.getActivity(this, notifyId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (SDK_INT >= O) {
             id = "id";
@@ -56,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
             mNotification = new Notification.Builder(MainActivity.this, id)
                 .setContentTitle(id)
                 .setContentText(description)
+                .setContentIntent(mPendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .build();
         } else {
             mNotification = new Notification.Builder(MainActivity.this)
                 .setContentTitle(id)
                 .setContentText(description)
+                .setContentIntent(mPendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setLights(Color.WHITE, Color.RED, Color.GREEN)
                 .setVibrate(new long[] {100, 300, 200, 300})
