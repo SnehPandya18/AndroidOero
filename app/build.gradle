@@ -3,6 +3,15 @@ apply from: '../dependencies.gradle'
 
 android {
 
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion versions.compileSdkVersion
     buildToolsVersion versions.buildToolsVersion
 
@@ -16,6 +25,20 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            res.srcDirs =
+                [
+                        'src/main/res/layout/activity',
+                        'src/main/res/layout/fragment',
+                        'src/main/res/layout/item',
+                        'src/main/res'
+                ]
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,7 +50,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'com.android.support:support-v4:' + versions.supportLibraryVersion
     implementation 'com.android.support:appcompat-v7:' + versions.supportLibraryVersion
+    implementation 'com.android.support:recyclerview-v7:' + versions.supportLibraryVersion
+
+    implementation 'android.arch.lifecycle:extensions:' + versions.architectureComponents
+    implementation 'android.arch.lifecycle:common-java8:' + versions.architectureComponents
+
+    implementation 'android.arch.persistence.room:rxjava2:' + versions.architectureComponents
+    implementation 'android.arch.persistence.room:runtime:' + versions.architectureComponents
+    annotationProcessor 'android.arch.persistence.room:compiler:' + versions.architectureComponents
+
     implementation 'com.android.support.constraint:constraint-layout:' + versions.constraintLayoutVersion
 
     testImplementation 'junit:junit:' + versions.jUnit

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidOreo</string>
+    <string name="notification">notification</string>
 </resources>

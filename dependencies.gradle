@@ -7,20 +7,20 @@ ext.versions = [
         buildToolsVersion           : '27.0.2',
 
         versionCode                 : 1,
-        versionName                 : "0.0.1",
+        versionName                 : '0.0.1',
 
         supportLibraryVersion       : '27.0.2',
         constraintLayoutVersion     : '1.0.2',
 
-        retrofit                    : '',
-        retrofitGsonConverter       : '',
-        retrofitRxJava2Adapter      : '',
+        retrofit                    : '2.3.0',
+        retrofitGsonConverter       : '2.3.0',
+        retrofitRxJava2Adapter      : '2.3.0',
 
         architectureComponents      : '1.0.0',
 
-        glide                       : '',
+        glide                       : '4.4.0',
 
         testingLibraryVersion       : '1.0.1',
         espresso                    : '3.0.1',
-        jUnit                       : '4.12',
+        jUnit                       : '4.12'
 ]
