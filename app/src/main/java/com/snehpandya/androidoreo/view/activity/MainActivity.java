@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.btnNotification.setOnClickListener(v -> notification());
         binding.btnFonts.setOnClickListener(v -> fonts());
+        binding.btnLocale.setOnClickListener(v -> locale());
     }
 
     private void notification() {
@@ -81,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void fonts() {
         Intent intent = new Intent(MainActivity.this, FontsActivity.class);
+        startActivity(intent);
+    }
+
+    private void locale() {
+        Intent intent = new Intent(MainActivity.this, LocaleActivity.class);
         startActivity(intent);
     }
 }

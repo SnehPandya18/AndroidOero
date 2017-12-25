@@ -2,6 +2,7 @@
     <string name="app_name">AndroidOreo</string>
     <string name="notification">notification</string>
     <string name="fonts">fonts</string>
+    <string name="locale">locale</string>
     <string name="dummy_text">Wish you a very Happy New Year!</string>
     <string name="starwars">May the Force be with you!</string>
 </resources>
