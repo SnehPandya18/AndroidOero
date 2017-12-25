@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.btnNotification.setOnClickListener(v -> notification());
+        binding.btnFonts.setOnClickListener(v -> fonts());
     }
 
     private void notification() {
@@ -76,5 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         }
             mNotificationManager.notify(notifyId, mNotification);
+    }
+
+    private void fonts() {
+        Intent intent = new Intent(MainActivity.this, FontsActivity.class);
+        startActivity(intent);
     }
 }
