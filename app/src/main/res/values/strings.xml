@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">AndroidOreo</string>
+
+    <!--MainActivity-->
     <string name="notification">notification</string>
     <string name="fonts">fonts</string>
     <string name="locale">locale</string>
+    <string name="background">background</string>
+
+    <!--FontsActivity-->
     <string name="dummy_text">Wish you a very Happy New Year!</string>
     <string name="starwars">May the Force be with you!</string>
+
+    <!--BackgroundServicesActivity-->
+    <string name="below_oreo">Below Android Oreo 8.0</string>
+    <string name="intent_sevice">intentservice</string>
 </resources>

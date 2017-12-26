@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         binding.btnNotification.setOnClickListener(v -> notification());
         binding.btnFonts.setOnClickListener(v -> fonts());
         binding.btnLocale.setOnClickListener(v -> locale());
+        binding.btnBackground.setOnClickListener(v -> background());
     }
 
     private void notification() {
@@ -87,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void locale() {
         Intent intent = new Intent(MainActivity.this, LocaleActivity.class);
+        startActivity(intent);
+    }
+
+    private void background() {
+        Intent intent = new Intent(MainActivity.this, BackgroundServicesActivity.class);
         startActivity(intent);
     }
 }
