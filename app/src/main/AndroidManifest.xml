@@ -27,6 +27,9 @@
         <service
             android:name=".view.service.NormalIntentService"
             android:exported="false"/>
+        <service
+            android:name=".view.service.NormalBroadcastReceiver"
+            android:exported="false"/>
     </application>
 
 </manifest>
