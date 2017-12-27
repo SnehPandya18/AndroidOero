@@ -54,6 +54,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:' + versions.supportLibraryVersion
     implementation 'com.android.support:recyclerview-v7:' + versions.supportLibraryVersion
 
+    implementation 'com.firebase:firebase-jobdispatcher:' + versions.firebaseJobDispatcher
+
     implementation 'android.arch.lifecycle:extensions:' + versions.architectureComponents
     implementation 'android.arch.lifecycle:common-java8:' + versions.architectureComponents
 

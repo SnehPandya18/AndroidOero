@@ -31,11 +31,21 @@
             android:name=".view.service.NormalBroadcastReceiver"
             android:exported="false"/>
 
-        <receiver android:name=".view.service.NormalAlarmReceiver"
-                  android:process=":remote"/>
+        <receiver
+            android:name=".view.service.NormalAlarmReceiver"
+            android:process=":remote"/>
+
         <service
             android:name=".view.service.NormalAlarmManager"
             android:exported="false"/>
+
+        <service
+            android:name=".view.service.NormalJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

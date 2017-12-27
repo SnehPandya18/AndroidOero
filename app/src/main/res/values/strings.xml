@@ -12,9 +12,14 @@
     <string name="starwars">May the Force be with you!</string>
 
     <!--BackgroundServicesActivity-->
-    <string name="below_oreo">Below Android Oreo 8.0</string>
+    <string name="native_android">Native Android</string>
+    <string name="gingerbread">Android GingerBread 2.3 API 9 and above</string>
+    <string name="lolllipop">Android Lollipop 5.0 API 21 and above</string>
+    <string name="oreo">Android Oreo 8.0 API 26 and above</string>
     <string name="intent_sevice">intentservice</string>
     <string name="broadcast">broadcastreceiver</string>
     <string name="start_alarm">start alarm</string>
     <string name="stop_alarm">stop alarm</string>
+    <string name="start_fjd">start FJD</string>
+    <string name="stop_fjd">stop FJD</string>
 </resources>

@@ -14,11 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
 import com.snehpandya.androidoreo.R;
 import com.snehpandya.androidoreo.databinding.ActivityBackgroundServicesBinding;
 import com.snehpandya.androidoreo.view.service.NormalAlarmReceiver;
 import com.snehpandya.androidoreo.view.service.NormalBroadcastReceiver;
 import com.snehpandya.androidoreo.view.service.NormalIntentService;
+import com.snehpandya.androidoreo.view.service.NormalJobService;
 
 /**
  * Created by sneh.pandya on 26/12/17.
@@ -27,6 +31,8 @@ import com.snehpandya.androidoreo.view.service.NormalIntentService;
 public class BackgroundServicesActivity extends AppCompatActivity {
 
     private ActivityBackgroundServicesBinding binding;
+
+    private FirebaseJobDispatcher firebaseJobDispatcher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class BackgroundServicesActivity extends AppCompatActivity {
         binding.btnBroadcast.setOnClickListener(this::broadcastReceiver);
         binding.btnStartAlarm.setOnClickListener(v -> startAlarm());
         binding.btnStopAlarm.setOnClickListener(v -> stopAlarm());
+        binding.btnStartFjd.setOnClickListener(v -> dispatchFJobD());
+        binding.btnStopFjd.setOnClickListener(v -> cancelFJobD());
     }
 
     private void intentService() {
@@ -92,5 +100,25 @@ public class BackgroundServicesActivity extends AppCompatActivity {
         alarmManager.cancel(pendingIntent);
         binding.btnStopAlarm.setEnabled(false);
         binding.btnStartAlarm.setEnabled(true);
+    }
+
+    private void dispatchFJobD() {
+        firebaseJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+
+        Job job = firebaseJobDispatcher.newJobBuilder()
+            .setService(NormalJobService.class)
+            .setTag("FirebaseJobDispatcher")
+            .build();
+
+        firebaseJobDispatcher.mustSchedule(job);
+        binding.btnStartFjd.setEnabled(false);
+        binding.btnStopFjd.setEnabled(true);
+    }
+
+    private void cancelFJobD() {
+        firebaseJobDispatcher.cancel("FirebaseJobDispatcher");
+        firebaseJobDispatcher.cancelAll();
+        binding.btnStopFjd.setEnabled(false);
+        binding.btnStartFjd.setEnabled(true);
     }
 }
