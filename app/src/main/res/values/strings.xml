@@ -15,4 +15,6 @@
     <string name="below_oreo">Below Android Oreo 8.0</string>
     <string name="intent_sevice">intentservice</string>
     <string name="broadcast">broadcastreceiver</string>
+    <string name="start_alarm">start alarm</string>
+    <string name="stop_alarm">stop alarm</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.snehpandya.androidoreo.view.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.snehpandya.androidoreo.R;
 import com.snehpandya.androidoreo.databinding.ActivityBackgroundServicesBinding;
+import com.snehpandya.androidoreo.view.service.NormalAlarmReceiver;
 import com.snehpandya.androidoreo.view.service.NormalBroadcastReceiver;
 import com.snehpandya.androidoreo.view.service.NormalIntentService;
 
@@ -23,13 +26,17 @@ import com.snehpandya.androidoreo.view.service.NormalIntentService;
 
 public class BackgroundServicesActivity extends AppCompatActivity {
 
+    private ActivityBackgroundServicesBinding binding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityBackgroundServicesBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_background_services);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_background_services);
 
         binding.btnIntentService.setOnClickListener(v -> intentService());
         binding.btnBroadcast.setOnClickListener(this::broadcastReceiver);
+        binding.btnStartAlarm.setOnClickListener(v -> startAlarm());
+        binding.btnStopAlarm.setOnClickListener(v -> stopAlarm());
     }
 
     private void intentService() {
@@ -67,4 +74,23 @@ public class BackgroundServicesActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void startAlarm() {
+        Intent intent = new Intent(getApplicationContext(), NormalAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, NormalAlarmReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long timeout = System.currentTimeMillis();
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeout, 10000, pendingIntent);
+        binding.btnStartAlarm.setEnabled(false);
+        binding.btnStopAlarm.setEnabled(true);
+    }
+
+    private void stopAlarm() {
+        Intent intent = new Intent(getApplicationContext(), NormalAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, NormalAlarmReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        binding.btnStopAlarm.setEnabled(false);
+        binding.btnStartAlarm.setEnabled(true);
+    }
 }
