@@ -2,15 +2,20 @@ package com.snehpandya.androidoreo.view.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +27,10 @@ import com.snehpandya.androidoreo.databinding.ActivityBackgroundServicesBinding;
 import com.snehpandya.androidoreo.view.service.NormalAlarmReceiver;
 import com.snehpandya.androidoreo.view.service.NormalBroadcastReceiver;
 import com.snehpandya.androidoreo.view.service.NormalIntentService;
+import com.snehpandya.androidoreo.view.service.NormalJobSchedulerService;
 import com.snehpandya.androidoreo.view.service.NormalJobService;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sneh.pandya on 26/12/17.
@@ -32,7 +40,8 @@ public class BackgroundServicesActivity extends AppCompatActivity {
 
     private ActivityBackgroundServicesBinding binding;
 
-    private FirebaseJobDispatcher firebaseJobDispatcher;
+    private FirebaseJobDispatcher mFirebaseJobDispatcher;
+    private JobScheduler mJobScheduler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +54,8 @@ public class BackgroundServicesActivity extends AppCompatActivity {
         binding.btnStopAlarm.setOnClickListener(v -> stopAlarm());
         binding.btnStartFjd.setOnClickListener(v -> dispatchFJobD());
         binding.btnStopFjd.setOnClickListener(v -> cancelFJobD());
+        binding.btnStartJsd.setOnClickListener(v -> startJobScheduler());
+        binding.btnStopJsd.setOnClickListener(v -> cancelJobScheduler());
     }
 
     private void intentService() {
@@ -103,22 +114,68 @@ public class BackgroundServicesActivity extends AppCompatActivity {
     }
 
     private void dispatchFJobD() {
-        firebaseJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+        mFirebaseJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
 
-        Job job = firebaseJobDispatcher.newJobBuilder()
+        Job job = mFirebaseJobDispatcher.newJobBuilder()
             .setService(NormalJobService.class)
             .setTag("FirebaseJobDispatcher")
             .build();
 
-        firebaseJobDispatcher.mustSchedule(job);
+        mFirebaseJobDispatcher.mustSchedule(job);
         binding.btnStartFjd.setEnabled(false);
         binding.btnStopFjd.setEnabled(true);
     }
 
     private void cancelFJobD() {
-        firebaseJobDispatcher.cancel("FirebaseJobDispatcher");
-        firebaseJobDispatcher.cancelAll();
+        mFirebaseJobDispatcher.cancel("FirebaseJobDispatcher");
+        mFirebaseJobDispatcher.cancelAll();
         binding.btnStopFjd.setEnabled(false);
         binding.btnStartFjd.setEnabled(true);
+    }
+
+    private void startJobScheduler() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mJobScheduler = (JobScheduler) this.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            mJobScheduler.cancelAll();
+            ComponentName componentName = new ComponentName(this, NormalJobSchedulerService.class);
+            int result = mJobScheduler.schedule(getJobInfo(1, 20, componentName));
+            if (result == JobScheduler.RESULT_SUCCESS) {
+                Log.d("Tag", "JobScheduler: Job scheduled successfully");
+            } else {
+                Log.d("Tag", "JobScheduler: JobScheduler requires API 21");
+            }
+            binding.btnStopJsd.setEnabled(true);
+            binding.btnStartJsd.setEnabled(false);
+        }
+    }
+
+    private JobInfo getJobInfo(int id, int minutes, ComponentName componentName) {
+        JobInfo jobInfo = null;
+        long interval = TimeUnit.MINUTES.toMillis(minutes);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            jobInfo = new JobInfo.Builder(id, componentName)
+                .setMinimumLatency(interval)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .build();
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            jobInfo = new JobInfo.Builder(id, componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPeriodic(interval)
+                .build();
+        } else {
+            Log.d("Tag", "JobInfo: JobScheduler requires API 21");
+        }
+
+        return jobInfo;
+    }
+
+    private void cancelJobScheduler() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mJobScheduler.cancel(1);
+            mJobScheduler.cancelAll();
+        }
+        binding.btnStartJsd.setEnabled(true);
+        binding.btnStopJsd.setEnabled(false);
     }
 }

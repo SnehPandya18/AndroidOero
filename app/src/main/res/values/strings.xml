@@ -22,4 +22,6 @@
     <string name="stop_alarm">stop alarm</string>
     <string name="start_fjd">start FJD</string>
     <string name="stop_fjd">stop FJD</string>
+    <string name="start_jsd">start JSD</string>
+    <string name="stop_jsd">stop JSD</string>
 </resources>

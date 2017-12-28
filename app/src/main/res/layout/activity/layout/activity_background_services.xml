@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,7 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,6 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/start_alarm"
@@ -70,6 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:enabled="false"
@@ -79,7 +82,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_broadcast"/>
 
             <TextView
-                android:id="@+id/text_heading_"
+                android:id="@+id/text_heading_gingerbread"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -95,25 +98,70 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/start_fjd"
                 app:layout_constraintEnd_toStartOf="@+id/btn_stop_fjd"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_heading_"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_heading_gingerbread"/>
 
             <Button
                 android:id="@+id/btn_stop_fjd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:enabled="false"
                 android:text="@string/stop_fjd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_start_fjd"
-                app:layout_constraintTop_toBottomOf="@+id/text_heading_"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_heading_gingerbread"/>
+
+            <TextView
+                android:id="@+id/text_heading_lollipop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/lolllipop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_stop_fjd"/>
+
+            <Button
+                android:id="@+id/btn_start_jsd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/start_jsd"
+                app:layout_constraintEnd_toStartOf="@+id/btn_stop_jsd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_heading_lollipop"/>
+
+            <Button
+                android:id="@+id/btn_stop_jsd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:enabled="false"
+                android:text="@string/stop_jsd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_start_jsd"
+                app:layout_constraintTop_toBottomOf="@+id/text_heading_lollipop"/>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </layout>
